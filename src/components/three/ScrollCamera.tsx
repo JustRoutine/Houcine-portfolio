@@ -5,27 +5,46 @@ import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
 /**
- * Drives the camera forward based on global scroll progress (0..1),
- * read from the Lenis instance exposed on window. Adds subtle pointer parallax.
+ * Cinematic scroll-driven camera. Uses eased scroll progress to dolly forward,
+ * arc subtly, and add damped pointer parallax. lookAt is also offset slightly
+ * so the framing breathes rather than staying locked.
  */
 export function ScrollCamera() {
   const { camera } = useThree();
-  const target = useRef(new THREE.Vector3(0, 0, 6));
+  const pos = useRef(new THREE.Vector3(0, 0, 6));
+  const look = useRef(new THREE.Vector3(0, 0, 0));
+  const lookTarget = useRef(new THREE.Vector3(0, 0, 0));
+  const smoothProgress = useRef(0);
 
   useFrame((state) => {
     const doc = document.documentElement;
     const max = doc.scrollHeight - window.innerHeight;
-    const progress = max > 0 ? window.scrollY / max : 0;
+    const raw = max > 0 ? window.scrollY / max : 0;
+    // ease the scroll progress for cinematic inertia
+    smoothProgress.current += (raw - smoothProgress.current) * 0.07;
+    const p = smoothProgress.current;
 
-    // travel forward + slight orbit as we descend the page
-    target.current.set(
-      Math.sin(progress * Math.PI * 1.2) * 1.4 + state.pointer.x * 0.4,
-      progress * -1.2 + state.pointer.y * 0.3,
-      6 - progress * 3.2
+    const px = state.pointer.x;
+    const py = state.pointer.y;
+
+    // dolly + arc: travel inward and sweep around the core
+    pos.current.set(
+      Math.sin(p * Math.PI * 1.1) * 1.8 + px * 0.5,
+      p * -1.4 + py * 0.35,
+      6 - p * 3.6
     );
+    camera.position.lerp(pos.current, 0.05);
 
-    camera.position.lerp(target.current, 0.06);
-    camera.lookAt(0, 0, 0);
+    // breathing look target
+    lookTarget.current.set(px * 0.3, py * 0.2 - p * 0.3, 0);
+    look.current.lerp(lookTarget.current, 0.05);
+    camera.lookAt(look.current);
+
+    // subtle fov push for depth on scroll
+    const cam = camera as THREE.PerspectiveCamera;
+    const targetFov = 42 + p * 6;
+    cam.fov += (targetFov - cam.fov) * 0.05;
+    cam.updateProjectionMatrix();
   });
 
   return null;

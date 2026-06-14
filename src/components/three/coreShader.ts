@@ -1,25 +1,29 @@
 import { useMemo } from 'react';
 
-// Custom shader for the creative core: animated curl-noise displacement
-// with a fresnel rim glow blending electric blue (#0000FF) and rose (#FF007F).
+// Premium creative-core shader.
+// Multi-octave simplex (fbm) displacement + smooth pointer reactivity,
+// soft fresnel rim, and a subtle electric-blue -> rose gradient mapped to
+// curvature. Tuned for a refined, restrained glow (not neon-heavy).
 export function useCoreShader() {
   return useMemo(
     () => ({
       uniforms: {
         uTime: { value: 0 },
         uPointer: { value: [0, 0] },
-        uIntensity: { value: 0.55 },
+        uPointerVel: { value: 0 },
+        uIntensity: { value: 0.42 },
         uColorA: { value: [0.0, 0.0, 1.0] }, // electric blue
         uColorB: { value: [1.0, 0.0, 0.498] }, // rose
       },
       vertexShader: /* glsl */ `
         uniform float uTime;
         uniform vec2 uPointer;
+        uniform float uPointerVel;
         uniform float uIntensity;
         varying vec3 vNormal;
+        varying vec3 vViewDir;
         varying float vDisp;
 
-        // Classic Perlin-ish noise (Ashima simplex 3D)
         vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x,289.0);}
         vec4 taylorInvSqrt(vec4 r){return 1.79284291400159-0.85373472095314*r;}
         float snoise(vec3 v){
@@ -65,27 +69,51 @@ export function useCoreShader() {
           return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
         }
 
+        // fractal brownian motion for richer surface detail
+        float fbm(vec3 p) {
+          float total = 0.0;
+          float amp = 0.5;
+          float freq = 1.0;
+          for (int i = 0; i < 4; i++) {
+            total += snoise(p * freq) * amp;
+            freq *= 2.0;
+            amp *= 0.5;
+          }
+          return total;
+        }
+
         void main() {
-          vNormal = normal;
-          float t = uTime * 0.35;
-          float pointerPush = uPointer.x * 0.4 + uPointer.y * 0.4;
-          float n = snoise(normal * 1.6 + vec3(t, t * 0.7, -t));
-          float disp = n * (uIntensity + pointerPush * 0.25);
+          vNormal = normalize(normalMatrix * normal);
+          float t = uTime * 0.28;
+          // pointer creates a directional bulge toward the cursor
+          vec3 pDir = normalize(vec3(uPointer, 0.8));
+          float pointerLobe = max(dot(normal, pDir), 0.0);
+          float reactive = pointerLobe * (0.18 + uPointerVel * 0.6);
+          float n = fbm(normal * 1.5 + vec3(t, t * 0.6, -t));
+          float disp = n * uIntensity + reactive;
           vDisp = disp;
           vec3 newPos = position + normal * disp;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(newPos, 1.0);
+          vec4 mvPosition = modelViewMatrix * vec4(newPos, 1.0);
+          vViewDir = normalize(-mvPosition.xyz);
+          gl_Position = projectionMatrix * mvPosition;
         }
       `,
       fragmentShader: /* glsl */ `
         uniform vec3 uColorA;
         uniform vec3 uColorB;
+        uniform float uTime;
         varying vec3 vNormal;
+        varying vec3 vViewDir;
         varying float vDisp;
         void main() {
-          float fres = pow(1.0 - abs(dot(normalize(vNormal), vec3(0.0, 0.0, 1.0))), 2.2);
-          float mixv = clamp(vDisp * 1.4 + 0.5, 0.0, 1.0);
-          vec3 base = mix(uColorA, uColorB, mixv);
-          vec3 col = base * (0.25 + fres * 1.6);
+          float fres = pow(1.0 - max(dot(normalize(vNormal), normalize(vViewDir)), 0.0), 3.0);
+          float mixv = clamp(vDisp * 1.1 + 0.5, 0.0, 1.0);
+          // animated subtle hue drift between the two accents
+          float drift = 0.5 + 0.5 * sin(uTime * 0.2 + vDisp * 3.0);
+          vec3 base = mix(uColorA, uColorB, clamp(mixv * 0.7 + drift * 0.3, 0.0, 1.0));
+          // restrained core + soft rim glow
+          vec3 col = base * (0.12 + fres * 1.25);
+          col += base * smoothstep(0.4, 1.0, fres) * 0.4;
           gl_FragColor = vec4(col, 1.0);
         }
       `,
