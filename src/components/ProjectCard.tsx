@@ -1,48 +1,111 @@
 'use client';
 
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
 import type { Project } from '@/lib/projects';
+import { ProjectVisualPlaceholder } from './ProjectVisualPlaceholder';
 
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const accent = project.accent === 'electric' ? 'text-electric' : 'text-rose';
-  const accentBorder =
-    project.accent === 'electric'
-      ? 'group-hover:border-electric/60'
-      : 'group-hover:border-rose/60';
-  const glow =
-    project.accent === 'electric'
-      ? 'from-electric/20'
-      : 'from-rose/20';
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [tilt, setTilt] = useState({ rx: 0, ry: 0, gx: 50, gy: 50 });
+  const [hover, setHover] = useState(false);
+
+  const isElectric = project.accent === 'electric';
+  const accentText = isElectric ? 'text-electric' : 'text-rose';
+  const accentBorder = isElectric
+    ? 'hover:border-electric/60'
+    : 'hover:border-rose/60';
+  const accentHex = isElectric ? '#0000FF' : '#FF007F';
+
+  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = cardRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width;
+    const py = (e.clientY - r.top) / r.height;
+    setTilt({
+      ry: (px - 0.5) * 10,
+      rx: -(py - 0.5) * 10,
+      gx: px * 100,
+      gy: py * 100,
+    });
+  };
+
+  const reset = () => {
+    setTilt({ rx: 0, ry: 0, gx: 50, gy: 50 });
+    setHover(false);
+  };
 
   return (
     <motion.article
+      ref={cardRef}
       initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-12%' }}
       transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: (index % 2) * 0.08 }}
+      onMouseMove={handleMove}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={reset}
+      style={{
+        transform: `perspective(1000px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`,
+        transformStyle: 'preserve-3d',
+        transition: 'transform 0.25s cubic-bezier(0.16,1,0.3,1)',
+      }}
       className={clsx(
-        'group relative overflow-hidden rounded-3xl glass p-8 transition-all duration-500 hover:-translate-y-1',
+        'group relative overflow-hidden rounded-3xl glass transition-colors duration-500',
         accentBorder
       )}
     >
+      {/* interactive light following the cursor */}
       <div
-        className={clsx(
-          'pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-gradient-to-br to-transparent opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100',
-          glow
-        )}
+        className="pointer-events-none absolute inset-0 z-20 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        style={{
+          background: `radial-gradient(420px circle at ${tilt.gx}% ${tilt.gy}%, ${accentHex}22, transparent 55%)`,
+        }}
       />
-      <div className="relative z-10">
+
+      {/* immersive visual */}
+      <div className="relative aspect-[16/10] overflow-hidden" style={{ transform: 'translateZ(20px)' }}>
+        <div
+          className="h-full w-full transition-transform duration-700 ease-cinematic"
+          style={{ transform: hover ? 'scale(1.06)' : 'scale(1)' }}
+        >
+          <ProjectVisualPlaceholder visual={project.visual} title={project.title} />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent" />
+        <span className="absolute left-6 top-6 rounded-full bg-black/30 px-3 py-1 font-sans text-[11px] uppercase tracking-[0.2em] text-white/80 backdrop-blur-sm">
+          {project.client}
+        </span>
+      </div>
+
+      <div className="relative z-10 p-8" style={{ transform: 'translateZ(35px)' }}>
         <div className="flex items-center justify-between">
           <span className="eyebrow">{project.category}</span>
           <span className="font-display text-xs text-white/40">{project.year}</span>
         </div>
-        <h3 className="mt-6 font-display text-3xl font-medium tracking-tightest md:text-4xl">
+        <h3 className="mt-4 font-display text-3xl font-medium tracking-tightest md:text-4xl">
           {project.title}
         </h3>
         <p className="mt-4 max-w-md font-sans text-sm leading-relaxed text-white/60">
           {project.summary}
         </p>
+
+        <div
+          className="grid transition-all duration-500 ease-cinematic"
+          style={{
+            gridTemplateRows: hover ? '1fr' : '0fr',
+            opacity: hover ? 1 : 0,
+          }}
+        >
+          <div className="overflow-hidden">
+            <p className="mt-4 max-w-md font-sans text-sm leading-relaxed text-white/45">
+              <span className="text-white/70">Mon rôle — </span>
+              {project.contribution}
+            </p>
+          </div>
+        </div>
+
         <div className="mt-7 flex flex-wrap gap-2">
           {project.tags.map((t) => (
             <span
@@ -53,14 +116,12 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
             </span>
           ))}
         </div>
-        <div className={clsx('mt-8 flex items-center gap-2 font-sans text-xs uppercase tracking-[0.2em]', accent)}>
+
+        <div className={clsx('mt-8 flex items-center gap-2 font-sans text-xs uppercase tracking-[0.2em]', accentText)}>
           <span>Voir le projet</span>
           <span className="transition-transform duration-500 group-hover:translate-x-1">↗</span>
         </div>
       </div>
-      <span className="pointer-events-none absolute bottom-6 right-8 font-display text-7xl font-bold text-white/[0.03]">
-        {String(index + 1).padStart(2, '0')}
-      </span>
     </motion.article>
   );
 }
