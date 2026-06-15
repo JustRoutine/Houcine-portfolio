@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { site } from '@/lib/site';
 import { Button } from '@/components/Button';
 
-const titleLines = ['Créer', 'des univers', 'visuels'];
+const titleLines = ['Design.', 'UI/UX.', 'Identité.'];
 
 export function Hero() {
   return (
@@ -17,10 +17,10 @@ export function Hero() {
           className="eyebrow mb-8 flex items-center gap-3"
         >
           <span className="inline-block h-px w-10 bg-electric" />
-          Portfolio · {site.shortRole}
+          Portfolio · Développement Multimédia
         </motion.p>
 
-        <h1 className="max-w-5xl font-display text-[15vw] font-semibold leading-[0.88] tracking-tightest md:text-[9vw] lg:text-[8rem]">
+        <h1 className="max-w-6xl font-display text-[14vw] font-semibold leading-[0.88] tracking-tightest md:text-[8vw] lg:text-[7.4rem]">
           {titleLines.map((line, i) => (
             <span key={i} className="block overflow-hidden pb-[0.04em]">
               <motion.span
@@ -45,19 +45,34 @@ export function Hero() {
           transition={{ duration: 1, delay: 1.2 }}
           className="mt-10 flex flex-col items-start gap-8 md:flex-row md:items-center"
         >
-          <p className="max-w-md font-sans text-base leading-relaxed text-white/60">
-            {site.name} — {site.role}. Branding, UI/UX, web & print,
-            au service d’identités mémorables.
-          </p>
-          <Button
-            onClick={() =>
-              document
-                .getElementById('projects')
-                ?.scrollIntoView({ behavior: 'smooth' })
-            }
-          >
-            Découvrir mes projets
-          </Button>
+          <p className="max-w-xl font-sans text-lg leading-relaxed text-white/75">
+  {site.name}, développeur multimédia orienté branding, UI/UX,
+  web design et supports de communication. Je conçois des identités
+  visuelles et des interfaces claires, modernes et mémorables.
+</p>
+
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Button
+              onClick={() =>
+                document
+                  .getElementById('projects')
+                  ?.scrollIntoView({ behavior: 'smooth' })
+              }
+            >
+              Voir mes projets
+            </Button>
+
+            <Button
+              variant="ghost"
+              onClick={() =>
+                document
+                  .getElementById('contact')
+                  ?.scrollIntoView({ behavior: 'smooth' })
+              }
+            >
+              Me contacter
+            </Button>
+          </div>
         </motion.div>
       </div>
 

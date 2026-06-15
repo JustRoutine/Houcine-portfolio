@@ -32,8 +32,8 @@ npm run lint     # lint
 |-------|--------|-------|
 | `ink` | `#050505` | Fond noir profond |
 | `bone` | `#FFFFFF` | Blanc pur (texte) |
-| `electric` | `#0000FF` | Accent électrique bleu |
-| `rose` | `#FF007F` | Accent rose |
+| `electric` | `#182350` | Accent électrique bleu |
+| `rose` | `#AFD2FA` | Accent rose |
 
 - **Typographie** : `Space Grotesk` (display) + `Inter` (corps), chargées via `next/font` (variables CSS `--font-display`, `--font-sans`).
 - **Glass panels** : utilitaire `.glass` (border + bg translucide + backdrop-blur).

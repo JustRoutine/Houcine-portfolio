@@ -8,15 +8,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: {
-          DEFAULT: '#050505',
-          soft: '#0a0a0c',
-          panel: '#101014',
-        },
-        bone: '#FFFFFF',
-        electric: '#0000FF',
-        rose: '#FF007F',
-      },
+  ink: {
+    DEFAULT: '#182350',
+    soft: '#101A3F',
+    panel: '#22305F',
+  },
+  bone: '#FEFAEF',
+  electric: '#AFD2FA',
+  rose: '#B9915E',
+},
       fontFamily: {
         display: ['var(--font-display)', 'system-ui', 'sans-serif'],
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],

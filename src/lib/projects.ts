@@ -1,9 +1,6 @@
 export type ProjectVisual = {
-  /** Two-stop gradient used for the premium image placeholder. */
   gradient: [string, string];
-  /** Decorative pattern style for the placeholder. */
   pattern: 'grid' | 'dots' | 'rings' | 'stripes' | 'mesh' | 'noise';
-  /** Monogram / short mark shown on the placeholder. */
   mark: string;
 };
 
@@ -13,100 +10,90 @@ export type Project = {
   category: string;
   client: string;
   year: string;
-  /** Real, project-specific French copy (no generic filler). */
   summary: string;
   contribution: string;
   tags: string[];
   accent: 'electric' | 'rose';
   visual: ProjectVisual;
+  image?: string;
 };
 
-// Projets principaux. La 3D n'est PAS une spécialité — uniquement un décor
-// immersif de l'interface. Le montage vidéo n'est pas mis en avant.
-// Chaque projet a une identité visuelle distincte (gradient + motif + mark).
 export const projects: Project[] = [
   {
     id: 'vipet',
     title: 'VIPET',
-    category: 'Identité visuelle',
-    client: 'Marque animalerie',
-    year: '2024',
+    category: 'Identité visuelle & communication',
+    client: 'Projet PFE — hôtel pour animaux',
+    year: '2026',
     summary:
-      'VIPET est une marque dédiée au bien-être animal. J’ai conçu une identité douce mais affirmée : un logotype arrondi, une palette chaleureuse et un système d’icônes pensé pour parler autant aux maîtres qu’aux vétérinaires.',
+      'VIPET est un concept d’hôtel premium pour animaux domestiques. Le projet développe une identité visuelle complète autour d’un univers rassurant, moderne et distinctif, pensé pour valoriser le soin, la sécurité et l’expérience des animaux comme des propriétaires.',
     contribution:
-      'Logo, charte graphique complète, supports de communication (print & réseaux sociaux) et maquette de l’expérience digitale.',
-    tags: ['Logo', 'Charte graphique', 'Réseaux sociaux', 'Expérience digitale'],
-    accent: 'electric',
-    visual: { gradient: ['#0000FF', '#0A1A6B'], pattern: 'rings', mark: 'VP' },
+      'Création du concept, logo, charte graphique, supports print, supports digitaux, mockups, direction visuelle et présentation de marque.',
+    tags: ['Identité visuelle', 'Charte graphique', 'Print', 'Mockups'],
+    accent: 'rose',
+    image: '/images/portfolio-bank/vipet-logo.png',
+    visual: { gradient: ['#AFD2FA', '#2A0018'], pattern: 'rings', mark: 'VP' },
   },
   {
     id: 'suitch',
     title: 'SUITCH',
-    category: 'Branding & Direction artistique',
-    client: 'Label streetwear',
-    year: '2024',
+    category: 'Branding & univers de marque',
+    client: 'Concept clothing / streetwear',
+    year: '2025',
     summary:
-      'SUITCH est un label clothing / streetwear à forte attitude. J’ai bâti un univers de marque tranchant : typographie condensée, contrastes noirs et roses, et une direction artistique pensée pour les drops et les visuels produit.',
+      'SUITCH est un projet de marque clothing orienté streetwear. L’objectif est de construire un univers visuel direct, jeune et reconnaissable, capable de fonctionner sur les réseaux sociaux, les visuels produit et les supports de marque.',
     contribution:
-      'Plateforme de marque, direction artistique, déclinaisons textile, visuels lookbook et template de communication.',
-    tags: ['Streetwear', 'Direction artistique', 'Lookbook', 'Univers de marque'],
+      'Recherche d’identité, direction artistique, choix typographiques, palette couleur, visuels de marque, structure de communication et réflexion e-commerce.',
+    tags: ['Branding', 'Streetwear', 'Direction artistique', 'Réseaux sociaux'],
     accent: 'rose',
-    visual: { gradient: ['#FF007F', '#3A0020'], pattern: 'stripes', mark: 'SW' },
+    image: '/images/portfolio-bank/suitch-logo.png',
+    visual: { gradient: ['#AFD2FA', '#eb2427'], pattern: 'stripes', mark: 'SW' },
   },
   {
     id: 'uiux',
     title: 'UI/UX Design',
-    category: 'Product Design',
-    client: 'Projets web & mobile',
-    year: '2023–24',
+    category: 'Interfaces web & mobile',
+    client: 'Projets académiques et personnels',
+    year: '2024–2026',
     summary:
-      'Une série de maquettes web et mobile centrées sur la clarté et le parcours utilisateur. Du wireframe basse fidélité au prototype interactif, chaque écran est pensé pour réduire la friction et guider l’action.',
+      'Une sélection de maquettes web et mobile travaillées autour de la hiérarchie visuelle, de la lisibilité et du parcours utilisateur. L’approche reste simple : organiser l’information, rendre l’interface claire et guider l’utilisateur vers l’action.',
     contribution:
-      'Recherche, wireframes, design d’interface haute fidélité, prototypes Figma et amorce de design system.',
-    tags: ['Wireframes', 'Prototypage', 'Design system', 'Mobile'],
+      'Wireframes, maquettes haute fidélité, structure des pages, composants d’interface, responsive design et prototypes simples.',
+    tags: ['UI Design', 'UX', 'Wireframes', 'Responsive'],
     accent: 'electric',
-    visual: { gradient: ['#0000FF', '#101035'], pattern: 'grid', mark: 'UX' },
+    image: '/images/portfolio-bank/webdesign-cover.png',
+    visual: { gradient: ['#182350', '#101035'], pattern: 'grid', mark: 'UX' },
   },
-  {
-    id: 'webdesign',
-    title: 'Web Design',
-    category: 'Digital',
-    client: 'Landing & vitrines',
-    year: '2023–24',
-    summary:
-      'Des landing pages et sites vitrines pensés pour convertir et marquer les esprits. Mise en page éditoriale, hiérarchie claire et micro-animations discrètes pour une expérience fluide sur tous les écrans.',
-    contribution:
-      'Direction visuelle, maquettes desktop & mobile, système de composants et intégration de principes d’animation.',
-    tags: ['Landing pages', 'Sites vitrines', 'Responsive', 'Animations'],
-    accent: 'rose',
-    visual: { gradient: ['#FF007F', '#2A0F2A'], pattern: 'mesh', mark: 'WD' },
-  },
+  
   {
     id: 'print',
     title: 'Print Design',
-    category: 'Print & Édition',
+    category: 'Supports de communication',
     client: 'Documents professionnels',
-    year: 'En continu',
+    year: '2024–2026',
     summary:
-      'Un ensemble cohérent de supports imprimés et de documents professionnels : cartes de visite, flyers, affiches, mais aussi factures, devis et papier entête. Même rigueur typographique du commercial à l’administratif.',
+      'Un ensemble de supports imprimés conçus pour renforcer une identité visuelle : cartes de visite, flyers, affiches, papier entête, factures, devis et documents administratifs. L’objectif est de garder une cohérence entre le digital et le print.',
     contribution:
-      'Cartes de visite, flyers, affiches, modèles de factures, devis, papier entête et gabarits réutilisables.',
-    tags: ['Cartes de visite', 'Flyers', 'Affiches', 'Documents pro'],
-    accent: 'electric',
-    visual: { gradient: ['#0000FF', '#06061A'], pattern: 'dots', mark: 'PR' },
+      'Mise en page, choix typographiques, préparation des fichiers, déclinaisons graphiques, supports commerciaux et documents professionnels.',
+    tags: ['Flyers', 'Cartes de visite', 'Affiches', 'Documents pro'],
+    accent: 'rose',
+    image: '/images/portfolio-bank/print/printlabel.png',
+    
+    visual: { gradient: ['#AFD2FA', '#2A0F2A'], pattern: 'dots', mark: 'PR' },
   },
   {
     id: 'academic',
     title: 'Projets académiques multimédia',
-    category: 'Multimédia',
-    client: 'Cursus multimédia',
-    year: '2022–24',
+    category: 'Développement multimédia',
+    client: 'Formation multimédia',
+    year: '2023–2026',
     summary:
-      'Une sélection de travaux réalisés pendant ma formation multimédia : exercices de branding, compositions graphiques, interfaces et communication visuelle. Le terrain où j’ai forgé mes fondamentaux créatifs.',
+      'Une sélection de travaux réalisés dans le cadre de ma formation : compositions graphiques, interfaces, supports de communication, exercices de branding et projets numériques. Ces projets montrent ma progression et ma polyvalence.',
     contribution:
-      'Branding, design graphique, conception d’interfaces et supports de communication visuelle.',
-    tags: ['Branding', 'Design graphique', 'Interfaces', 'Communication'],
-    accent: 'rose',
-    visual: { gradient: ['#FF007F', '#1A0014'], pattern: 'noise', mark: 'AC' },
+      'Design graphique, conception d’interfaces, communication visuelle, mise en page, réflexion créative et production multimédia.',
+    tags: ['Multimédia', 'Design graphique', 'Interfaces', 'Communication'],
+    accent: 'electric',
+    image: '/images/portfolio-bank/academic-cover.png',
+    visual: { gradient: ['#182350', '#0A1A6B'], pattern: 'noise', mark: 'DM' },
   },
 ];

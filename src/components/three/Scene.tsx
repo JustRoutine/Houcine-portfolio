@@ -2,8 +2,12 @@
 
 import { Canvas } from '@react-three/fiber';
 import { Suspense, useEffect, useRef, useState } from 'react';
-import { CreativeCore } from './CreativeCore';
-import { Particles } from './Particles';
+import {
+  LuxuryLighting,
+  LuxuryMonogram,
+  MonogramHalo,
+  ReflectiveFloor,
+} from './luxuryMonogram';
 import { ScrollCamera } from './ScrollCamera';
 
 function useIsMobile() {
@@ -26,7 +30,6 @@ function useReducedMotion() {
   return reduced;
 }
 
-/** Pause the WebGL render loop while the canvas is scrolled out of view. */
 function useInViewport(ref: React.RefObject<HTMLElement>) {
   const [inView, setInView] = useState(true);
   useEffect(() => {
@@ -42,7 +45,6 @@ function useInViewport(ref: React.RefObject<HTMLElement>) {
   return inView;
 }
 
-/** Full-viewport fixed background scene. Lazy-loaded, mobile/reduced-motion aware. */
 export function Scene() {
   const isMobile = useIsMobile();
   const reduced = useReducedMotion();
@@ -54,7 +56,6 @@ export function Scene() {
       <Canvas
         camera={{ position: [0, 0, 6], fov: 42 }}
         dpr={isMobile ? [1, 1.5] : [1, 2]}
-        // Demand-driven on mobile / reduced-motion + when offscreen to avoid lag
         frameloop={inView && !reduced ? 'always' : 'demand'}
         gl={{
           antialias: !isMobile,
@@ -64,12 +65,10 @@ export function Scene() {
         performance={{ min: 0.5 }}
       >
         <Suspense fallback={null}>
-          <ambientLight intensity={0.6} />
-          <pointLight position={[5, 5, 5]} intensity={1.2} color="#0000ff" />
-          <pointLight position={[-5, -3, 2]} intensity={1} color="#ff007f" />
-          {/* Lower geometry detail on mobile keeps the shader cheap */}
-          <CreativeCore detail={isMobile ? 40 : 96} />
-          <Particles count={isMobile ? 450 : 1400} />
+          <LuxuryLighting />
+          <MonogramHalo />
+          <LuxuryMonogram scale={2.2} animated={!reduced} mobile={isMobile} />
+          <ReflectiveFloor />
           {!reduced && <ScrollCamera />}
         </Suspense>
       </Canvas>

@@ -4,15 +4,25 @@ import { motion } from 'framer-motion';
 import { RevealText } from '@/components/RevealText';
 
 const skills = [
-  { name: 'Design Graphique', level: 'Expert' },
-  { name: 'Branding', level: 'Expert' },
-  { name: 'UI/UX Design', level: 'Avancé' },
-  { name: 'Web Design', level: 'Avancé' },
-  { name: 'Print Design', level: 'Expert' },
-  { name: 'Direction artistique', level: 'Avancé' },
+  { name: 'Branding', level: 'Principal' },
+  { name: 'Design Graphique', level: 'Principal' },
+  { name: 'UI/UX Design', level: 'Intermédiaire' },
+  { name: 'Web Design', level: 'Intermédiaire' },
+  { name: 'WordPress', level: 'Intermédiaire' },
+  { name: 'Print Design', level: 'Principal' },
+  { name: 'HTML / CSS', level: 'Pratique' },
 ];
 
-const tools = ['Photoshop', 'Illustrator', 'InDesign', 'Figma', 'After Effects', 'Next.js'];
+const tools = [
+  'Photoshop',
+  'Illustrator',
+  'Figma',
+  'WordPress',
+  'HTML',
+  'CSS',
+  'JavaScript',
+  '3ds Max',
+];
 
 export function Skills() {
   return (
@@ -23,7 +33,7 @@ export function Skills() {
         </div>
         <RevealText
           as="h2"
-          text="Un spectre créatif complet."
+          text="Des compétences orientées design, interface et communication visuelle."
           className="mt-6 font-display text-4xl font-medium tracking-tightest md:text-6xl"
         />
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
 import type { Project } from '@/lib/projects';
@@ -16,7 +17,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
   const accentBorder = isElectric
     ? 'hover:border-electric/60'
     : 'hover:border-rose/60';
-  const accentHex = isElectric ? '#0000FF' : '#FF007F';
+  const accentHex = isElectric ? '#182350' : '#AFD2FA';
 
   const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = cardRef.current;
@@ -71,7 +72,19 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
           className="h-full w-full transition-transform duration-700 ease-cinematic"
           style={{ transform: hover ? 'scale(1.06)' : 'scale(1)' }}
         >
-          <ProjectVisualPlaceholder visual={project.visual} title={project.title} />
+          {project.image ? (
+  <Image
+    src={project.image}
+    alt={project.title}
+    fill
+    className="object-cover"
+  />
+) : (
+  <ProjectVisualPlaceholder
+    visual={project.visual}
+    title={project.title}
+  />
+)}
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent" />
         <span className="absolute left-6 top-6 rounded-full bg-black/30 px-3 py-1 font-sans text-[11px] uppercase tracking-[0.2em] text-white/80 backdrop-blur-sm">
