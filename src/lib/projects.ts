@@ -16,6 +16,8 @@ export type Project = {
   accent: 'electric' | 'rose';
   visual: ProjectVisual;
   image?: string;
+  /** If true, image is a logo and needs a gradient background + object-contain */
+  isLogo?: boolean;
   gallery?: { src: string; alt: string; caption?: string }[];
 };
 
@@ -33,6 +35,7 @@ export const projects: Project[] = [
     tags: ['Identité visuelle', 'Charte graphique', 'Print', 'Mockups'],
     accent: 'rose',
     image: '/images/portfolio-bank/vipet-logo.png',
+    isLogo: true,
     visual: { gradient: ['#FFF8F9', '#FFE8EC'], pattern: 'rings', mark: 'VP' },
   },
   {
@@ -48,6 +51,7 @@ export const projects: Project[] = [
     tags: ['Branding', 'Streetwear', 'Direction artistique', 'Réseaux sociaux'],
     accent: 'rose',
     image: '/images/portfolio-bank/suitch-logo.png',
+    isLogo: true,
     visual: { gradient: ['#F5F5F5', '#E8E8E8'], pattern: 'stripes', mark: 'SW' },
   },
   {

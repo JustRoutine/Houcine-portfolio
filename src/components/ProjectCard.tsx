@@ -81,19 +81,28 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
           style={{ transform: hover ? 'scale(1.06)' : 'scale(1)' }}
         >
           {project.image ? (
-  <div
-    className="relative h-full w-full"
-    style={{
-      background: `linear-gradient(135deg, ${project.visual.gradient[0]}, ${project.visual.gradient[1]})`,
-    }}
-  >
+  project.isLogo ? (
+    <div
+      className="relative h-full w-full"
+      style={{
+        background: `linear-gradient(135deg, ${project.visual.gradient[0]}, ${project.visual.gradient[1]})`,
+      }}
+    >
+      <Image
+        src={project.image}
+        alt={project.title}
+        fill
+        className="object-contain p-8"
+      />
+    </div>
+  ) : (
     <Image
       src={project.image}
       alt={project.title}
       fill
-      className="object-contain p-8"
+      className="object-cover"
     />
-  </div>
+  )
 ) : (
   <ProjectVisualPlaceholder
     visual={project.visual}
