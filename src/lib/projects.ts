@@ -33,7 +33,7 @@ export const projects: Project[] = [
     tags: ['Identité visuelle', 'Charte graphique', 'Print', 'Mockups'],
     accent: 'rose',
     image: '/images/portfolio-bank/vipet-logo.png',
-    visual: { gradient: ['#AFD2FA', '#2A0018'], pattern: 'rings', mark: 'VP' },
+    visual: { gradient: ['#FFF8F9', '#FFE8EC'], pattern: 'rings', mark: 'VP' },
   },
   {
     id: 'suitch',
@@ -48,7 +48,7 @@ export const projects: Project[] = [
     tags: ['Branding', 'Streetwear', 'Direction artistique', 'Réseaux sociaux'],
     accent: 'rose',
     image: '/images/portfolio-bank/suitch-logo.png',
-    visual: { gradient: ['#0a0a0a', '#1a1a1a'], pattern: 'stripes', mark: 'SW' },
+    visual: { gradient: ['#F5F5F5', '#E8E8E8'], pattern: 'stripes', mark: 'SW' },
   },
   {
     id: 'uiux',
