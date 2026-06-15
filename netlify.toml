@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish = "out"
+  ignore = "exit 0"
+
+[build.environment]
+  # Disable Netlify's auto-detected Next.js plugin
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
+  NODE_VERSION = "20"
