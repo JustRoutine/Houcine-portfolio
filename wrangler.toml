@@ -1,0 +1,11 @@
+name = "elhoussaine-portfolio"
+type = "javascript"
+account_id = ""
+workers_dev = false
+route = ""
+zone_id = ""
+
+# This is a static site exported to the 'out' directory.
+# Cloudflare Pages will serve the static files directly.
+[env.production]
+vars = { ENVIRONMENT = "production" }
