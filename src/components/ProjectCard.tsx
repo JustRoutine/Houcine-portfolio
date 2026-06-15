@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
 import type { Project } from '@/lib/projects';
@@ -58,6 +59,13 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
         accentBorder
       )}
     >
+      {/* Clickable overlay link */}
+      <Link
+        href={`/projects/${project.id}`}
+        className="absolute inset-0 z-30"
+        aria-label={`Voir le projet ${project.title}`}
+      />
+
       {/* interactive light following the cursor */}
       <div
         className="pointer-events-none absolute inset-0 z-20 opacity-0 transition-opacity duration-300 group-hover:opacity-100"

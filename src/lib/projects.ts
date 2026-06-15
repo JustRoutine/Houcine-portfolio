@@ -16,6 +16,7 @@ export type Project = {
   accent: 'electric' | 'rose';
   visual: ProjectVisual;
   image?: string;
+  gallery?: { src: string; alt: string; caption?: string }[];
 };
 
 export const projects: Project[] = [
