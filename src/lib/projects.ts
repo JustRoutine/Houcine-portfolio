@@ -48,7 +48,7 @@ export const projects: Project[] = [
     tags: ['Branding', 'Streetwear', 'Direction artistique', 'Réseaux sociaux'],
     accent: 'rose',
     image: '/images/portfolio-bank/suitch-logo.png',
-    visual: { gradient: ['#AFD2FA', '#eb2427'], pattern: 'stripes', mark: 'SW' },
+    visual: { gradient: ['#0a0a0a', '#1a1a1a'], pattern: 'stripes', mark: 'SW' },
   },
   {
     id: 'uiux',
