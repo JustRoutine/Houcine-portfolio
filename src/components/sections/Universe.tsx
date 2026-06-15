@@ -7,7 +7,7 @@ const universes = [
   {
     title: 'Design Graphique',
     desc: 'Systèmes visuels, compositions et identités qui marquent.',
-    accent: '#182350',
+    accent: '#B9915E',
   },
   {
     title: 'Branding',
@@ -17,22 +17,22 @@ const universes = [
   {
     title: 'UI/UX',
     desc: 'Interfaces claires, fluides et centrées utilisateur.',
-    accent: '#182350',
+    accent: '#AFD2FA',
   },
   {
     title: 'Web Design',
     desc: 'Sites vitrines et expériences digitales immersives.',
-    accent: '#AFD2FA',
+    accent: '#B9915E',
   },
   {
     title: 'Print',
     desc: 'Supports imprimés et documents professionnels cohérents.',
-    accent: '#182350',
+    accent: '#AFD2FA',
   },
   {
     title: 'Communication visuelle',
     desc: 'Campagnes, réseaux sociaux et supports de communication.',
-    accent: '#AFD2FA',
+    accent: '#B9915E',
   },
 ];
 
