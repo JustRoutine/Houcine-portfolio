@@ -161,7 +161,7 @@ export function ProjectDetail({ project }: { project: Project }) {
 
         {project.gallery && project.gallery.length > 0 ? (
           <motion.div
-            className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+            className="mt-12 grid gap-6 sm:grid-cols-2"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -169,21 +169,21 @@ export function ProjectDetail({ project }: { project: Project }) {
             {project.gallery.map((item, i) => (
               <motion.figure
                 key={item.src}
-                className="group relative overflow-hidden rounded-xl border border-white/10"
+                className="group relative overflow-hidden rounded-xl border border-white/10 bg-[#111827]"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, ease, delay: 0.1 * i }}
+                transition={{ duration: 0.7, ease, delay: 0.05 * i }}
               >
                 <div className="relative aspect-[4/3]">
                   <Image
                     src={item.src}
                     alt={item.alt}
                     fill
-                    className="object-cover transition-transform duration-700 ease-cinematic group-hover:scale-105"
+                    className="object-contain p-4 transition-transform duration-700 ease-cinematic group-hover:scale-105"
                   />
                 </div>
                 {item.caption && (
-                  <figcaption className="p-4 font-sans text-xs text-white/50">
+                  <figcaption className="border-t border-white/5 px-4 py-3 font-sans text-xs text-white/50">
                     {item.caption}
                   </figcaption>
                 )}
