@@ -18,6 +18,8 @@ export type Project = {
   image?: string;
   /** If true, image is a logo and needs a gradient background + object-contain */
   isLogo?: boolean;
+  /** URL to a downloadable PDF charte */
+  charteUrl?: string;
   gallery?: { src: string; alt: string; caption?: string }[];
 };
 
@@ -36,7 +38,27 @@ export const projects: Project[] = [
     accent: 'rose',
     image: '/images/portfolio-bank/vipet-logo.png',
     isLogo: true,
+    charteUrl: '/images/portfolio-bank/vipet/vipet-charte.pdf',
     visual: { gradient: ['#FFF8F9', '#FFE8EC'], pattern: 'rings', mark: 'VP' },
+    gallery: [
+      { src: '/images/portfolio-bank/vipet/vipet-01.png', alt: 'Mascotte VIPET', caption: 'Mascotte — personnage de marque' },
+      { src: '/images/portfolio-bank/vipet/vipet-02.png', alt: 'Identité visuelle VIPET', caption: 'Identité visuelle' },
+      { src: '/images/portfolio-bank/vipet/vipet-03.png', alt: 'Branding VIPET', caption: 'Univers de marque' },
+      { src: '/images/portfolio-bank/vipet/vipet-04.png', alt: 'Éléments graphiques', caption: 'Éléments graphiques' },
+      { src: '/images/portfolio-bank/vipet/vipet-05.png', alt: 'Supports visuels', caption: 'Supports visuels' },
+      { src: '/images/portfolio-bank/vipet/vipet-06.png', alt: 'Déclinaisons', caption: 'Déclinaisons' },
+      { src: '/images/portfolio-bank/vipet/vipet-07.png', alt: 'Communication visuelle', caption: 'Communication visuelle' },
+      { src: '/images/portfolio-bank/vipet/vipet-08.png', alt: 'Supports de marque', caption: 'Supports de marque' },
+      { src: '/images/portfolio-bank/vipet/vipet-09.png', alt: 'Direction artistique', caption: 'Direction artistique' },
+      { src: '/images/portfolio-bank/vipet/vipet-10.png', alt: 'Hoodie mockup 01', caption: 'Mockup hoodie — face' },
+      { src: '/images/portfolio-bank/vipet/vipet-11.png', alt: 'Hoodie mockup 02', caption: 'Mockup hoodie — dos' },
+      { src: '/images/portfolio-bank/vipet/vipet-12.png', alt: 'Charte graphique mockup', caption: 'Charte graphique — mockup' },
+      { src: '/images/portfolio-bank/vipet/vipet-13.png', alt: 'Manifesto page', caption: 'Manifesto de marque' },
+      { src: '/images/portfolio-bank/vipet/vipet-14.png', alt: 'Stamp VIPET', caption: 'Stamp / tampon' },
+      { src: '/images/portfolio-bank/vipet/vipet-15.png', alt: 'Tote bag mockup', caption: 'Tote bag' },
+      { src: '/images/portfolio-bank/vipet/vipet-16.png', alt: 'Tote bag final', caption: 'Tote bag — version finale' },
+      { src: '/images/portfolio-bank/vipet/vipet-17.png', alt: 'Application mobile', caption: 'Interface mobile' },
+    ],
   },
   {
     id: 'suitch',

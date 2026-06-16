@@ -102,6 +102,22 @@ export function ProjectDetail({ project }: { project: Project }) {
                 </span>
               ))}
             </motion.div>
+
+            {/* Charte PDF download */}
+            {project.charteUrl && (
+              <motion.div className="mt-8" {...fadeUp(0.7)}>
+                <a
+                  href={project.charteUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/10 px-5 py-2.5 font-sans text-xs uppercase tracking-[0.15em] text-white/70 transition-colors hover:border-white/30 hover:text-white"
+                >
+                  <span>📄</span>
+                  <span>Télécharger la charte graphique</span>
+                  <span>↓</span>
+                </a>
+              </motion.div>
+            )}
           </div>
 
           {/* Right: Hero image */}
